@@ -7,6 +7,18 @@ const unitTemplates = {
         portraitSrc: "images/me_infantry_detail.png", 
         attackType: "single" 
     },
+	"marine_corps": { 
+        name: "Marine Corps", hp: 90, speed: 1.8, range: 30, damage: 12, 
+        radius: 14, color: '#1abc9c', spriteSrc: "", portraitSrc: "", attackType: "single",
+        isMarine: true // <--- FLAG
+    },
+
+    // 3. SHIPS (Water Only)
+    "destroyer_ship": { 
+        name: "Destroyer", hp: 250, speed: 2.0, range: 120, damage: 40, 
+        radius: 20, color: '#34495e', spriteSrc: "", portraitSrc: "", attackType: "aoe",
+        isShip: true // <--- FLAG
+    },
 	"beer_lover_militia": { 
         name: "Beer Militia", hp: 70, speed: 1.5, range: 25, damage: 15, 
         radius: 14, color: '#f1c40f', spriteSrc: "", portraitSrc: "", attackType: "single",
@@ -74,7 +86,12 @@ radius: 15, color: 'rgb(200,200,150)', spriteSrc: "", portraitSrc: "", attackTyp
 "cre_armored_car": { 
 name: "Cat-Egyptian armored car 'Sisisís I' ", hp: 200, speed: 1.4, range: 30, damage: 11, 
 radius: 15, color: 'rgb(200,200,150)', spriteSrc: "", portraitSrc: "", attackType: "single" 
-}
+},
+	"strategic_bomber": { 
+        name: "Bomber", hp: 200, speed: 3.5, range: 60, damage: 50, 
+        radius: 18, color: '#e74c3c', spriteSrc: "", portraitSrc: "", attackType: "aoe",
+        isFlying: true // <--- FLAG
+    }
 };
 
 // --- 2. TILE MAP SYSTEM ---
@@ -270,6 +287,11 @@ class Unit {
     constructor(x, y, faction, templateKey) {
         this.x = x; this.y = y;
         this.faction = faction; 
+		this.neverRetreat = template.neverRetreat || false;
+        this.isMarine = template.isMarine || false;
+        this.isShip = template.isShip || false;
+        this.isFlying = template.isFlying || false;
+
         
         const template = unitTemplates[templateKey];
         this.type = template.name;
@@ -332,7 +354,7 @@ class Unit {
             this.hp -= 2; this.trenchDamageTimer = 60; 
         }
 
-        if (this.hp <= this.maxHp * 0.4 && !this.isRetreating) {
+        if (this.hp <= this.maxHp * 0.4 && !this.isRetreating && !this.neverRetreat) {
             this.isRetreating = true; this.hasMoveOrder = false;
         }
 
@@ -386,22 +408,44 @@ class Unit {
         }
     }
 
-        moveWithPathfinding(moveX, moveY) {
-        // Try moving on the X axis
+            moveWithPathfinding(moveX, moveY) {
         let nextX = this.x + moveX;
+        let nextY = this.y + moveY;
         let tileX = getTileAt(nextX, this.y);
-        
-        let canMoveX = true;
-        if (tileX === TILE_WATER) canMoveX = false;
-        if (tileX === TILE_CITY && !this.key.includes('infantry')) canMoveX = false;
+        let tileY = getTileAt(this.x, nextY);
 
-        if (canMoveX) {
-            let speedModifier = 1.0;
-            if (tileX === TILE_CITY) speedModifier = 0.5;
-            if (tileX === TILE_TRENCH) speedModifier = 0.3;
-            this.x += moveX * speedModifier;
+        // 1. FLYING UNITS IGNORE ALL TERRAIN
+        if (this.isFlying) {
+            this.x += moveX;
+            this.y += moveY;
+            return;
         }
 
+        // 2. SHIPS CAN ONLY MOVE ON WATER
+        if (this.isShip) {
+            if (tileX === TILE_WATER) this.x += moveX;
+            if (tileY === TILE_WATER) this.y += moveY;
+            return; // End logic for ships
+        }
+
+        // 3. GROUND UNITS (Infantry, Tanks, Marines)
+        // Block water
+        let canMoveX = tileX !== TILE_WATER;
+        let canMoveY = tileY !== TILE_WATER;
+
+        // Block cities for non-infantry
+        if (tileX === TILE_CITY && !this.key.includes('infantry')) canMoveX = false;
+        if (tileY === TILE_CITY && !this.key.includes('infantry')) canMoveY = false;
+
+        if (canMoveX) {
+            let speedModifier = (tileX === TILE_CITY) ? 0.5 : (tileX === TILE_TRENCH ? 0.3 : 1.0);
+            this.x += moveX * speedModifier;
+        }
+        if (canMoveY) {
+            let speedModifier = (tileY === TILE_CITY) ? 0.5 : (tileY === TILE_TRENCH ? 0.3 : 1.0);
+            this.y += moveY * speedModifier;
+        }
+    }
         // Try moving on the Y axis
         let nextY = this.y + moveY;
         let tileY = getTileAt(this.x, nextY);
@@ -418,24 +462,42 @@ class Unit {
         }
     }
 
-    performAttack(primaryTarget, allUnits) {
+        performAttack(primaryTarget, allUnits) {
+        // NEW: Check if Marine is near water
+        let finalDamage = this.attackDamage;
+        if (this.isMarine && isNearWater(this.x, this.y)) {
+            finalDamage *= 1.5; // 50% more damage near water!
+        }
+
+        // NEW: Bombers take reduced damage from ground units
+        // (We will handle this when the target is being hit, but for visual, we just draw the line)
+        
         ctx.beginPath(); ctx.moveTo(this.x, this.y); ctx.lineTo(primaryTarget.x, primaryTarget.y);
         ctx.strokeStyle = this.attackType === 'aoe' ? 'rgba(155, 89, 182, 0.8)' : 'rgba(255, 255, 255, 0.5)';
+        
+        // Draw red line if Marine buff is active
+        if (this.isMarine && isNearWater(this.x, this.y)) ctx.strokeStyle = '#e74c3c';
+
         ctx.lineWidth = this.attackType === 'aoe' ? 3 : 1; ctx.stroke();
 
+        // Apply Damage
         if (this.attackType === 'single') {
-            primaryTarget.hp -= this.attackDamage;
+            primaryTarget.hp -= finalDamage;
         } else if (this.attackType === 'aoe') {
             for (let u of allUnits) {
                 if (u.faction !== this.faction && u.hp > 0) {
                     let distToTarget = Math.hypot(u.x - primaryTarget.x, u.y - primaryTarget.y);
-                    if (distToTarget <= 60) u.hp -= this.attackDamage * 0.6; 
+                    if (distToTarget <= 60) {
+                        // If the target is flying and the attacker is NOT flying, deal reduced damage
+                        let aoeDmg = finalDamage * 0.6;
+                        if (u.isFlying && !this.isFlying) aoeDmg *= 0.3; // Ground units barely scratch planes
+                        u.hp -= aoeDmg; 
+                    }
                 }
             }
-            primaryTarget.hp -= this.attackDamage;
+            primaryTarget.hp -= finalDamage;
         }
     }
-}
 
 // --- 5. SPAWNING & SCENARIOS ---
 function addLine(unitList, type, faction, count, startX, startY, endX, endY) {
@@ -755,5 +817,17 @@ function gameLoop() {
     }
     requestAnimationFrame(gameLoop);
 }
-
+function isNearWater(px, py) {
+    // Checks a 3x3 grid around the unit for water
+    for (let dx = -1; dx <= 1; dx++) {
+        for (let dy = -1; dy <= 1; dy++) {
+            let checkX = px + (dx * TILE_SIZE);
+            let checkY = py + (dy * TILE_SIZE);
+            if (getTileAt(checkX, checkY) === TILE_WATER) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 gameLoop();
