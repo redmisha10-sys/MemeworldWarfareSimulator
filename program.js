@@ -7,6 +7,16 @@ const unitTemplates = {
         portraitSrc: "images/me_infantry_detail.png", 
         attackType: "single" 
     },
+	"beer_lover_militia": { 
+        name: "Beer Militia", hp: 70, speed: 1.5, range: 25, damage: 15, 
+        radius: 14, color: '#f1c40f', spriteSrc: "", portraitSrc: "", attackType: "single",
+        neverRetreat: true // <--- FLAG
+    },
+    "combat_robot": { 
+        name: "Combat Robot", hp: 120, speed: 1.2, range: 40, damage: 20, 
+        radius: 15, color: '#95a5a6', spriteSrc: "", portraitSrc: "", attackType: "single",
+        neverRetreat: true // <--- FLAG
+    },
 	"floppa_infantry": { 
         name: "Floppa Infantry", hp: 115, speed: 1, range: 28, damage: 9, 
         radius: 10, color: '#3498db', 
