@@ -7,29 +7,27 @@ const unitTemplates = {
         portraitSrc: "images/me_infantry_detail.png", 
         attackType: "single" 
     },
-	"marine_corps": { 
+    "marine_corps": { 
         name: "Marine Corps", hp: 90, speed: 1.8, range: 30, damage: 12, 
         radius: 14, color: '#1abc9c', spriteSrc: "", portraitSrc: "", attackType: "single",
-        isMarine: true // <--- FLAG
+        isMarine: true 
     },
-
-    // 3. SHIPS (Water Only)
     "destroyer_ship": { 
         name: "Destroyer", hp: 250, speed: 2.0, range: 120, damage: 40, 
         radius: 20, color: '#34495e', spriteSrc: "", portraitSrc: "", attackType: "aoe",
-        isShip: true // <--- FLAG
+        isShip: true 
     },
-	"beer_lover_militia": { 
+    "beer_lover_militia": { 
         name: "Beer Militia", hp: 70, speed: 1.5, range: 25, damage: 15, 
         radius: 14, color: '#f1c40f', spriteSrc: "", portraitSrc: "", attackType: "single",
-        neverRetreat: true // <--- FLAG
+        neverRetreat: true 
     },
     "combat_robot": { 
         name: "Combat Robot", hp: 120, speed: 1.2, range: 40, damage: 20, 
         radius: 15, color: '#95a5a6', spriteSrc: "", portraitSrc: "", attackType: "single",
-        neverRetreat: true // <--- FLAG
+        neverRetreat: true 
     },
-	"floppa_infantry": { 
+    "floppa_infantry": { 
         name: "Floppa Infantry", hp: 115, speed: 1, range: 28, damage: 9, 
         radius: 10, color: '#3498db', 
         spriteSrc: "images/me_infantry.png", 
@@ -46,51 +44,48 @@ const unitTemplates = {
     },
     "human_GEF_artillery": { 
         name: "Blitz artillery", hp: 170, speed: 0.7, range: 180, damage: 6, 
-        radius: 19, color: 'rgb(200,200,200)', spriteSrc: "images/human_GEF_artillery", portraitSrc: "images/human_GEF_artillery_detail", attackType: "aoe" 
+        radius: 19, color: 'rgb(200,200,200)', spriteSrc: "images/human_GEF_artillery.png", portraitSrc: "images/human_GEF_artillery_detail.png", attackType: "aoe" 
     },
     "sphynx_infantry": { 
-        name: "Sphynx Infantry Forces of Great Empire of Faces", hp: 65, speed: 1.1, range: 30, damage: 10, 
+        name: "Sphynx Infantry", hp: 65, speed: 1.1, range: 30, damage: 10, 
         radius: 10, color: 'rgb(220,220,150)', spriteSrc: "images/sphynx_infantry.png", portraitSrc: "images/sphynx_infantry_detail.png", attackType: "single" 
     },
-	"beaver_infantry": { 
-        name: "Empire of Beavers Infantry Forces", hp: 60, speed: 0.9, range: 28, damage: 14, 
+    "beaver_infantry": { 
+        name: "Empire of Beavers Infantry", hp: 60, speed: 0.9, range: 28, damage: 14, 
         radius: 10, color: 'rgb(220,220,150)', spriteSrc: "images/beaver_infantry.png", portraitSrc: "images/beaver_infantry_detail.png", attackType: "single" 
-    },    "anprim_militia": { 
-        name: "Anprim Militia", 
-        hp: 60, speed: 2.4, range: 20, damage: 16, 
-        radius: 13, color: '#8b4513', // Brown color
-        spriteSrc: "", portraitSrc: "", attackType: "single" 
+    },    
+    "anprim_militia": { 
+        name: "Anprim Militia", hp: 60, speed: 2.4, range: 20, damage: 16, 
+        radius: 13, color: '#8b4513', spriteSrc: "", portraitSrc: "", attackType: "single" 
     },
     "memerooms_monster": { 
-        name: "Cringe Anomaly", 
-        hp: 40, speed: 3.2, range: 20, damage: 28, // Glass cannon: fast, high damage, very low HP
-        radius: 16, color: '#ffcc00', // Sickly yellow
-        spriteSrc: "", portraitSrc: "", attackType: "single" 
+        name: "Cringe Anomaly", hp: 40, speed: 3.2, range: 20, damage: 28, 
+        radius: 16, color: '#ffcc00', spriteSrc: "", portraitSrc: "", attackType: "single" 
     },
     "floppa_medium_tank": { 
         name: "Floppa Medium Tank", hp: 190, speed: 0.6, range: 25, damage: 6, 
         radius: 27, color: 'rgb(200,200,200)', spriteSrc: "images/floppa_medium_tank.png", portraitSrc: "images/floppa_medium_tank.png", attackType: "single" 
     },
-"snus_tank": { 
+    "snus_tank": { 
         name: "Snus tank", hp: 240, speed: 0.6, range: 25, damage: 6, 
-        radius: 34, color: 'rgb(200,200,200)', spriteSrc: "images/maxo_blaster.png", portraitSrc: "images/snus_tank_detail.png", attackType: "aoe" 
+        radius: 34, color: 'rgb(200,200,200)', spriteSrc: "images/snus_tank.png", portraitSrc: "images/snus_tank_detail.png", attackType: "aoe" 
     },
-"maxo_blaster": { 
+    "maxo_blaster": { 
         name: "Maxo-Blaster", hp: 22, speed: 5, range: 300, damage: 27, 
         radius: 28, color: 'rgb(200,200,200)', spriteSrc: "images/maxo_blaster.png", portraitSrc: "images/maxo_blaster_detail.png", attackType: "aoe" 
     },
-"cre_infantry": { 
-name: "Cat-Egyptian infantry", hp: 60, speed: 0.8, range: 30, damage: 9, 
-radius: 15, color: 'rgb(200,200,150)', spriteSrc: "", portraitSrc: "", attackType: "single" 
-},
-"cre_armored_car": { 
-name: "Cat-Egyptian armored car 'Sisisís I' ", hp: 200, speed: 1.4, range: 30, damage: 11, 
-radius: 15, color: 'rgb(200,200,150)', spriteSrc: "", portraitSrc: "", attackType: "single" 
-},
-	"strategic_bomber": { 
+    "cre_infantry": { 
+        name: "Cat-Egyptian infantry", hp: 60, speed: 0.8, range: 30, damage: 9, 
+        radius: 15, color: 'rgb(200,200,150)', spriteSrc: "", portraitSrc: "", attackType: "single" 
+    },
+    "cre_armored_car": { 
+        name: "Cat-Egyptian armored car", hp: 200, speed: 1.4, range: 30, damage: 11, 
+        radius: 15, color: 'rgb(200,200,150)', spriteSrc: "", portraitSrc: "", attackType: "single" 
+    },
+    "strategic_bomber": { 
         name: "Bomber", hp: 200, speed: 3.5, range: 60, damage: 50, 
         radius: 18, color: '#e74c3c', spriteSrc: "", portraitSrc: "", attackType: "aoe",
-        isFlying: true // <--- FLAG
+        isFlying: true 
     }
 };
 
@@ -121,7 +116,7 @@ const mapLayouts = {
         "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL",
         "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"
     ],
-        "memerooms_campaign": [
+    "memerooms_campaign": [
         "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
         "WLLLLLLLLLLLLLLLLLLLLLLLLLLLLW",
         "WLLLLLLLLLLLLLLLLLLLLLLLLLLLLW",
@@ -140,8 +135,6 @@ const mapLayouts = {
         "WLLLLLLLLLLLWWWWWWWWLLLLLLLLW",
         "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWW"
     ],
-
-    // 2. Shapi Desert (Mostly open, tiny oasis in the middle)
     "shapi_desert": [
         "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL",
         "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL",
@@ -161,7 +154,7 @@ const mapLayouts = {
         "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL",
         "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"
     ],
-	"memiga": [
+    "memiga": [
         "WWLLLLLLLLLLLLLLLLLLLLLLLLLLLL",
         "WWLLLLLLLLLLLLLLLLLLLLLLLLLLLL",
         "WWLLLLLLLLLLLLLLLLLLLLLLLLLLLL",
@@ -180,8 +173,6 @@ const mapLayouts = {
         "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL",
         "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"
     ],
-
-    // 3. Pelmenorezh Palace (Heavy city fortress on the right)
     "pelmenorezh": [
         "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL",
         "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL",
@@ -201,7 +192,7 @@ const mapLayouts = {
         "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL",
         "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"
     ],
-"bobrinsk": [
+    "bobrinsk": [
         "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL",
         "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL",
         "LLLLLLLLLLTTTTTLLLLLLLLLLLLLLL",
@@ -246,13 +237,24 @@ function getTileAt(x, y) {
     return parsedMap[gridY][gridX];
 }
 
+function isNearWater(px, py) {
+    for (let dx = -1; dx <= 1; dx++) {
+        for (let dy = -1; dy <= 1; dy++) {
+            let checkX = px + (dx * TILE_SIZE);
+            let checkY = py + (dy * TILE_SIZE);
+            if (getTileAt(checkX, checkY) === TILE_WATER) return true;
+        }
+    }
+    return false;
+}
+
 // --- 3. DOM ELEMENTS & GAME STATE ---
 const canvas = document.getElementById('battlefield');
 const ctx = canvas.getContext('2d');
 const statsPanel = document.getElementById('stats-panel');
 const battleTitle = document.getElementById('battle-title');
 const portraitImg = document.getElementById('unit-portrait');
-const aiToggleBtn = document.getElementById('global-ai-toggle'); // NEW
+const aiToggleBtn = document.getElementById('global-ai-toggle');
 
 const images = {};
 const portraits = {};
@@ -265,8 +267,8 @@ for (let key in unitTemplates) {
 
 let units = [];
 let gameState = 'menu'; 
-let currentAIBehavior = 'aggressive'; // Enemy AI
-let playerAIBehavior = 'defense'; // NEW: Player AI
+let currentAIBehavior = 'aggressive'; 
+let playerAIBehavior = 'defense'; 
 
 let mouseX = 0, mouseY = 0;
 let isDragging = false;
@@ -287,13 +289,15 @@ class Unit {
     constructor(x, y, faction, templateKey) {
         this.x = x; this.y = y;
         this.faction = faction; 
-		this.neverRetreat = template.neverRetreat || false;
+        
+        // FIX: Template must be declared FIRST before reading flags
+        const template = unitTemplates[templateKey];
+        
+        this.neverRetreat = template.neverRetreat || false;
         this.isMarine = template.isMarine || false;
         this.isShip = template.isShip || false;
         this.isFlying = template.isFlying || false;
-
         
-        const template = unitTemplates[templateKey];
         this.type = template.name;
         this.key = templateKey;
         this.maxHp = template.hp; this.hp = this.maxHp;
@@ -350,7 +354,7 @@ class Unit {
         if (this.trenchDamageTimer > 0) this.trenchDamageTimer--;
 
         let currentTile = getTileAt(this.x, this.y);
-        if (currentTile === TILE_TRENCH && this.trenchDamageTimer <= 0) {
+        if (currentTile === TILE_TRENCH && this.trenchDamageTimer <= 0 && !this.isFlying) {
             this.hp -= 2; this.trenchDamageTimer = 60; 
         }
 
@@ -386,7 +390,6 @@ class Unit {
             if (dist > this.speed) { moveX = (dx / dist) * this.speed; moveY = (dy / dist) * this.speed; isMoving = true; }
             else { this.hasMoveOrder = false; }
         } else if (targetEnemy) {
-            // NEW: Check Player/Enemy AI behaviors to see if they should hold ground
             let isHoldingGround = false;
             if (this.faction === 'player' && playerAIBehavior === 'defense') isHoldingGround = true;
             if (this.faction === 'enemy' && currentAIBehavior === 'defensive') isHoldingGround = true;
@@ -408,32 +411,27 @@ class Unit {
         }
     }
 
-            moveWithPathfinding(moveX, moveY) {
+    moveWithPathfinding(moveX, moveY) {
         let nextX = this.x + moveX;
         let nextY = this.y + moveY;
         let tileX = getTileAt(nextX, this.y);
         let tileY = getTileAt(this.x, nextY);
 
-        // 1. FLYING UNITS IGNORE ALL TERRAIN
         if (this.isFlying) {
             this.x += moveX;
             this.y += moveY;
             return;
         }
 
-        // 2. SHIPS CAN ONLY MOVE ON WATER
         if (this.isShip) {
             if (tileX === TILE_WATER) this.x += moveX;
             if (tileY === TILE_WATER) this.y += moveY;
-            return; // End logic for ships
+            return; 
         }
 
-        // 3. GROUND UNITS (Infantry, Tanks, Marines)
-        // Block water
         let canMoveX = tileX !== TILE_WATER;
         let canMoveY = tileY !== TILE_WATER;
 
-        // Block cities for non-infantry
         if (tileX === TILE_CITY && !this.key.includes('infantry')) canMoveX = false;
         if (tileY === TILE_CITY && !this.key.includes('infantry')) canMoveY = false;
 
@@ -446,41 +444,18 @@ class Unit {
             this.y += moveY * speedModifier;
         }
     }
-        // Try moving on the Y axis
-        let nextY = this.y + moveY;
-        let tileY = getTileAt(this.x, nextY);
-        
-        let canMoveY = true;
-        if (tileY === TILE_WATER) canMoveY = false;
-        if (tileY === TILE_CITY && !this.key.includes('infantry')) canMoveY = false;
 
-        if (canMoveY) {
-            let speedModifier = 1.0;
-            if (tileY === TILE_CITY) speedModifier = 0.5;
-            if (tileY === TILE_TRENCH) speedModifier = 0.3;
-            this.y += moveY * speedModifier;
-        }
-    }
-
-        performAttack(primaryTarget, allUnits) {
-        // NEW: Check if Marine is near water
+    performAttack(primaryTarget, allUnits) {
         let finalDamage = this.attackDamage;
-        if (this.isMarine && isNearWater(this.x, this.y)) {
-            finalDamage *= 1.5; // 50% more damage near water!
-        }
+        if (this.isMarine && isNearWater(this.x, this.y)) finalDamage *= 1.5; 
 
-        // NEW: Bombers take reduced damage from ground units
-        // (We will handle this when the target is being hit, but for visual, we just draw the line)
-        
         ctx.beginPath(); ctx.moveTo(this.x, this.y); ctx.lineTo(primaryTarget.x, primaryTarget.y);
-        ctx.strokeStyle = this.attackType === 'aoe' ? 'rgba(155, 89, 182, 0.8)' : 'rgba(255, 255, 255, 0.5)';
         
-        // Draw red line if Marine buff is active
         if (this.isMarine && isNearWater(this.x, this.y)) ctx.strokeStyle = '#e74c3c';
+        else ctx.strokeStyle = this.attackType === 'aoe' ? 'rgba(155, 89, 182, 0.8)' : 'rgba(255, 255, 255, 0.5)';
 
         ctx.lineWidth = this.attackType === 'aoe' ? 3 : 1; ctx.stroke();
 
-        // Apply Damage
         if (this.attackType === 'single') {
             primaryTarget.hp -= finalDamage;
         } else if (this.attackType === 'aoe') {
@@ -488,9 +463,8 @@ class Unit {
                 if (u.faction !== this.faction && u.hp > 0) {
                     let distToTarget = Math.hypot(u.x - primaryTarget.x, u.y - primaryTarget.y);
                     if (distToTarget <= 60) {
-                        // If the target is flying and the attacker is NOT flying, deal reduced damage
                         let aoeDmg = finalDamage * 0.6;
-                        if (u.isFlying && !this.isFlying) aoeDmg *= 0.3; // Ground units barely scratch planes
+                        if (u.isFlying && !this.isFlying) aoeDmg *= 0.3; 
                         u.hp -= aoeDmg; 
                     }
                 }
@@ -498,6 +472,7 @@ class Unit {
             primaryTarget.hp -= finalDamage;
         }
     }
+}
 
 // --- 5. SPAWNING & SCENARIOS ---
 function addLine(unitList, type, faction, count, startX, startY, endX, endY) {
@@ -513,98 +488,85 @@ function startBattle(scenarioKey) {
     parseMap(selectedLayout); 
     currentAIBehavior = 'aggressive'; 
     
-    // Reset Player AI to Defense on start
     playerAIBehavior = 'defense';
     aiToggleBtn.textContent = 'Defense Mode';
     aiToggleBtn.classList.remove('attack');
     aiToggleBtn.classList.add('defense');
 
     if (scenarioKey === 'july_pelmensk') {
-	currentAIBehavior = 'defensive';
+        currentAIBehavior = 'defensive';
         battleTitle.textContent = "I Battle for P'el'm'ensk";
         addLine(units, "caracal_artillery", "player", 2, 150, 250, 150, 350);
         addLine(units, "human_infantry", "player", 16, 50, 450, 870, 450);
         addLine(units, "caracal_artillery", "enemy", 8, 700, 150, 100, 100);
-	addLine(units, "floppa_infantry", "enemy", 8, 700, 150, 100, 150);
-	addLine(units, "floppa_infantry", "enemy", 8, 700, 100, 100, 100);
+        addLine(units, "floppa_infantry", "enemy", 8, 700, 150, 100, 150);
+        addLine(units, "floppa_infantry", "enemy", 8, 700, 100, 100, 100);
         addLine(units, "human_infantry", "player", 6, 50, 400, 50, 400);
         addLine(units, "human_infantry", "player", 16, 50, 480, 870, 480);
         addLine(units, "human_infantry", "player", 16, 50, 410, 870, 410);
         addLine(units, "human_infantry", "player", 16, 50, 410, 870, 410);
         addLine(units, "human_infantry", "player", 16, 50, 390, 870, 390);
     } else if (scenarioKey === 'bobrinsk'){
-	battleTitle.textContent = "Siege of Bobrinsk - Third/Fourth Memeworld War";
-	addLine(units, "sphynx_infantry", "enemy", 10, 30, 460, 850, 460);
-	addLine(units, "sphynx_infantry", "enemy", 10, 30, 420, 850, 420);
-	addLine(units, "sphynx_infantry", "enemy", 10, 30, 480, 850, 480);
-	addLine(units, "human_GEF_artillery", "enemy", 5, 30, 480, 850, 480);
-	addLine(units, "sphynx_infantry", "enemy", 10, 30, 20, 30, 300);
-	addLine(units, "sphynx_infantry", "enemy", 10, 30, 30, 450, 30);
-	addLine(units, "sphynx_infantry", "enemy", 10, 30, 50, 450, 50);
-	addLine(units, "sphynx_infantry", "enemy", 10, 30, 50, 450, 50);
-	addLine(units, "sphynx_infantry", "enemy", 10, 30, 20, 30, 300);
-	addLine(units, "sphynx_infantry", "enemy", 10, 850, 20, 850, 300);
-	addLine(units, "beaver_infantry", "player", 10, 250, 137, 600, 137);
-	addLine(units, "beaver_infantry", "player", 10, 250, 180, 600, 180);
-	addLine(units, "beaver_infantry", "player", 10, 250, 165, 600, 160);
-	addLine(units, "beaver_infantry", "player", 10, 250, 200, 600, 200);
-	addLine(units, "beaver_infantry", "player", 10, 250, 260, 600, 260);
-	addLine(units, "beaver_infantry", "player", 10, 600, 137, 600, 260);
-	addLine(units, "beaver_infantry", "player", 10, 500, 137, 500, 260);
-	addLine(units, "beaver_infantry", "player", 10, 500, 137, 500, 260);
-	addLine(units, "beaver_infantry", "player", 10, 500, 137, 400, 260);
-	addLine(units, "beaver_infantry", "player", 10, 550, 137, 550, 260);
-	addLine(units, "beaver_infantry", "player", 10, 279, 137, 279, 260);
-	addLine(units, "beaver_infantry", "player", 10, 230, 137, 230, 260);
-	addLine(units, "beaver_infantry", "player", 10, 145, 137, 145, 260);
-	addLine(units, "beaver_infantry", "player", 10, 190, 137, 190, 260);
-	addLine(units, "beaver_infantry", "player", 10, 190, 400, 190, 400);
-	
-
-}
-else if (scenarioKey === 'memiga'){
-	battleTitle.textContent = "Siege of Bobrinsk - Third/Fourth Memeworld War";
-	addLine(units, "human_infantry", "player", 17, 30, 50, 850, 50);
-	addLine(units, "human_infantry", "player", 17, 30, 100, 850, 100);
-	addLine(units, "human_infantry", "player", 17, 30, 120, 850, 120);
-	addLine(units, "human_infantry", "player", 17, 30, 140, 850, 140);
-	addLine(units, "beer_lover_infantry", "enemy", 6, 200, 230, 350, 230);
-	addLine(units, "beer_lover_infantry", "enemy", 6, 200, 260, 350, 260);
-	addLine(units, "beer_lover_infantry", "enemy", 6, 200, 350, 350, 350);
-	addLine(units, "beer_lover_infantry", "enemy", 6, 200, 260, 370, 260);
-	addLine(units, "beer_lover_infantry", "enemy", 6, 200, 360, 360, 360);
-	addLine(units, "beer_lover_infantry", "enemy", 6, 200, 380, 380, 380);
-	addLine(units, "human_infantry", "player", 9, 500, 50, 850, 50);
-	addLine(units, "human_infantry", "player", 7, 500, 100, 850, 100);
-	addLine(units, "human_infantry", "player", 8, 500, 120, 850, 120);
-	addLine(units, "human_infantry", "player", 6, 500, 140, 850, 140);
-	addLine(units, "ukr_infantry", "ally", 6, 200, 420, 380, 420);
-	addLine(units, "ukr_infantry", "ally", 6, 200, 440, 380, 440);
-	
-	
-
-}  else if (scenarioKey === 'memerooms_campaign') {
+        battleTitle.textContent = "Siege of Bobrinsk - Third/Fourth Memeworld War";
+        addLine(units, "sphynx_infantry", "enemy", 10, 30, 460, 850, 460);
+        addLine(units, "sphynx_infantry", "enemy", 10, 30, 420, 850, 420);
+        addLine(units, "sphynx_infantry", "enemy", 10, 30, 480, 850, 480);
+        addLine(units, "human_GEF_artillery", "enemy", 5, 30, 480, 850, 480);
+        addLine(units, "sphynx_infantry", "enemy", 10, 30, 20, 30, 300);
+        addLine(units, "sphynx_infantry", "enemy", 10, 30, 30, 450, 30);
+        addLine(units, "sphynx_infantry", "enemy", 10, 30, 50, 450, 50);
+        addLine(units, "sphynx_infantry", "enemy", 10, 30, 50, 450, 50);
+        addLine(units, "sphynx_infantry", "enemy", 10, 30, 20, 30, 300);
+        addLine(units, "sphynx_infantry", "enemy", 10, 850, 20, 850, 300);
+        addLine(units, "beaver_infantry", "player", 10, 250, 137, 600, 137);
+        addLine(units, "beaver_infantry", "player", 10, 250, 180, 600, 180);
+        addLine(units, "beaver_infantry", "player", 10, 250, 165, 600, 160);
+        addLine(units, "beaver_infantry", "player", 10, 250, 200, 600, 200);
+        addLine(units, "beaver_infantry", "player", 10, 250, 260, 600, 260);
+        addLine(units, "beaver_infantry", "player", 10, 600, 137, 600, 260);
+        addLine(units, "beaver_infantry", "player", 10, 500, 137, 500, 260);
+        addLine(units, "beaver_infantry", "player", 10, 500, 137, 500, 260);
+        addLine(units, "beaver_infantry", "player", 10, 500, 137, 400, 260);
+        addLine(units, "beaver_infantry", "player", 10, 550, 137, 550, 260);
+        addLine(units, "beaver_infantry", "player", 10, 279, 137, 279, 260);
+        addLine(units, "beaver_infantry", "player", 10, 230, 137, 230, 260);
+        addLine(units, "beaver_infantry", "player", 10, 145, 137, 145, 260);
+        addLine(units, "beaver_infantry", "player", 10, 190, 137, 190, 260);
+        addLine(units, "beaver_infantry", "player", 10, 190, 400, 190, 400);
+    } else if (scenarioKey === 'memiga'){
+        battleTitle.textContent = "Battle for Memiga";
+        addLine(units, "human_infantry", "player", 17, 30, 50, 850, 50);
+        addLine(units, "human_infantry", "player", 17, 30, 100, 850, 100);
+        addLine(units, "human_infantry", "player", 17, 30, 120, 850, 120);
+        addLine(units, "human_infantry", "player", 17, 30, 140, 850, 140);
+        // FIX: Changed to beer_lover_militia
+        addLine(units, "beer_lover_militia", "enemy", 6, 200, 230, 350, 230);
+        addLine(units, "beer_lover_militia", "enemy", 6, 200, 260, 350, 260);
+        addLine(units, "beer_lover_militia", "enemy", 6, 200, 350, 350, 350);
+        addLine(units, "beer_lover_militia", "enemy", 6, 200, 260, 370, 260);
+        addLine(units, "beer_lover_militia", "enemy", 6, 200, 360, 360, 360);
+        addLine(units, "beer_lover_militia", "enemy", 6, 200, 380, 380, 380);
+        addLine(units, "human_infantry", "player", 9, 500, 50, 850, 50);
+        addLine(units, "human_infantry", "player", 7, 500, 100, 850, 100);
+        addLine(units, "human_infantry", "player", 8, 500, 120, 850, 120);
+        addLine(units, "human_infantry", "player", 6, 500, 140, 850, 140);
+        // FIX: Changed ukr_infantry to human_infantry
+        addLine(units, "human_infantry", "ally", 6, 200, 420, 380, 420);
+        addLine(units, "human_infantry", "ally", 6, 200, 440, 380, 440);
+    } else if (scenarioKey === 'memerooms_campaign') {
         battleTitle.textContent = "Memerooms Campaign";
-        currentAIBehavior = 'aggressive'; // The monsters will rush you immediately!
-        
-        // Player starts in the top-left corner
+        currentAIBehavior = 'aggressive'; 
         addLine(units, "human_infantry", "player", 4, 60, 60, 120, 60);
         addLine(units, "caracal_artillery", "player", 1, 60, 120, 60, 120);
-
-        // Anprims (Allies) start in the bottom-right
         addLine(units, "anprim_militia", "ally", 5, 800, 450, 800, 500);
-
-        // Memerooms Monsters (Enemies) spawn scattered in the maze
         addLine(units, "memerooms_monster", "enemy", 3, 400, 250, 450, 250);
         addLine(units, "memerooms_monster", "enemy", 2, 600, 150, 650, 150);
         addLine(units, "memerooms_monster", "enemy", 3, 250, 400, 300, 400);
         addLine(units, "memerooms_monster", "enemy", 3, 650, 400, 700, 400);
-    }
-else {
+    } else {
         battleTitle.textContent = scenarioKey.toUpperCase().replace('_', ' ');
         addLine(units, "human_infantry", "player", 6, 50, 200, 50, 400);
         addLine(units, "floppa_cavalry", "enemy", 6, 700, 200, 700, 400);
-
     }
 
     document.getElementById('main-menu').style.display = 'none';
@@ -817,17 +779,5 @@ function gameLoop() {
     }
     requestAnimationFrame(gameLoop);
 }
-function isNearWater(px, py) {
-    // Checks a 3x3 grid around the unit for water
-    for (let dx = -1; dx <= 1; dx++) {
-        for (let dy = -1; dy <= 1; dy++) {
-            let checkX = px + (dx * TILE_SIZE);
-            let checkY = py + (dy * TILE_SIZE);
-            if (getTileAt(checkX, checkY) === TILE_WATER) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
+
 gameLoop();
