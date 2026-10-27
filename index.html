@@ -32,7 +32,7 @@
                 <h3>Battle for Memiga</h3>
                 <p>Push communist alcoholic revolutionaries away from Memiga!.</p>
             </button>
-            <button class="scenario-card" onclick="startBattle('memerooms_campaign')">
+	<button class="scenario-card" onclick="startBattle('memerooms_campaign')">
                 <h3>Memerooms campaign</h3>
                 <p>Survive the lethal cringe anomalies in the endless yellow corridors.</p>
             </button>
@@ -85,12 +85,13 @@
 
     <!-- ================= GAME UI ================= -->
     <div id="game-ui" class="game-container" style="display: none;">
-        <header class="hud-top">
+                <header class="hud-top">
             <h2 id="battle-title">Battle Name</h2>
             <div class="hud-controls">
                 <button id="global-ai-toggle" class="toggle-btn defense">Defense Mode</button>
                 <button id="exit-btn" class="danger-btn" onclick="returnToMenu()">Retreat to Menu</button>
             </div>
+        </header>
         </header>
 
         <canvas id="battlefield" width="900" height="550"></canvas>
@@ -99,6 +100,7 @@
             <div class="stats-panel" id="stats-panel">
                 <p>Select units to command.</p>
             </div>
+            <!-- PORTRAIT PANEL IS NOW OUTSIDE THE STATS PANEL -->
             <div class="portrait-panel">
                 <img id="unit-portrait" src="" alt="Unit Portrait" style="display: none;">
             </div>
