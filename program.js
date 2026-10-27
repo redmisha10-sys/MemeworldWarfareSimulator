@@ -237,24 +237,13 @@ function getTileAt(x, y) {
     return parsedMap[gridY][gridX];
 }
 
-function isNearWater(px, py) {
-    for (let dx = -1; dx <= 1; dx++) {
-        for (let dy = -1; dy <= 1; dy++) {
-            let checkX = px + (dx * TILE_SIZE);
-            let checkY = py + (dy * TILE_SIZE);
-            if (getTileAt(checkX, checkY) === TILE_WATER) return true;
-        }
-    }
-    return false;
-}
-
 // --- 3. DOM ELEMENTS & GAME STATE ---
 const canvas = document.getElementById('battlefield');
 const ctx = canvas.getContext('2d');
 const statsPanel = document.getElementById('stats-panel');
 const battleTitle = document.getElementById('battle-title');
 const portraitImg = document.getElementById('unit-portrait');
-const aiToggleBtn = document.getElementById('global-ai-toggle');
+const aiToggleBtn = document.getElementById('global-ai-toggle'); 
 
 const images = {};
 const portraits = {};
@@ -293,6 +282,11 @@ class Unit {
         // FIX: Template must be declared FIRST before reading flags
         const template = unitTemplates[templateKey];
         
+        if (!template) {
+            console.error("CRITICAL ERROR: Unit template not found: " + templateKey);
+            return;
+        }
+
         this.neverRetreat = template.neverRetreat || false;
         this.isMarine = template.isMarine || false;
         this.isShip = template.isShip || false;
@@ -483,95 +477,100 @@ function addLine(unitList, type, faction, count, startX, startY, endX, endY) {
 }
 
 function startBattle(scenarioKey) {
-    units = []; 
-    let selectedLayout = mapLayouts[scenarioKey] || mapLayouts["default"];
-    parseMap(selectedLayout); 
-    currentAIBehavior = 'aggressive'; 
-    
-    playerAIBehavior = 'defense';
-    aiToggleBtn.textContent = 'Defense Mode';
-    aiToggleBtn.classList.remove('attack');
-    aiToggleBtn.classList.add('defense');
-
-    if (scenarioKey === 'july_pelmensk') {
-        currentAIBehavior = 'defensive';
-        battleTitle.textContent = "I Battle for P'el'm'ensk";
-        addLine(units, "caracal_artillery", "player", 2, 150, 250, 150, 350);
-        addLine(units, "human_infantry", "player", 16, 50, 450, 870, 450);
-        addLine(units, "caracal_artillery", "enemy", 8, 700, 150, 100, 100);
-        addLine(units, "floppa_infantry", "enemy", 8, 700, 150, 100, 150);
-        addLine(units, "floppa_infantry", "enemy", 8, 700, 100, 100, 100);
-        addLine(units, "human_infantry", "player", 6, 50, 400, 50, 400);
-        addLine(units, "human_infantry", "player", 16, 50, 480, 870, 480);
-        addLine(units, "human_infantry", "player", 16, 50, 410, 870, 410);
-        addLine(units, "human_infantry", "player", 16, 50, 410, 870, 410);
-        addLine(units, "human_infantry", "player", 16, 50, 390, 870, 390);
-    } else if (scenarioKey === 'bobrinsk'){
-        battleTitle.textContent = "Siege of Bobrinsk - Third/Fourth Memeworld War";
-        addLine(units, "sphynx_infantry", "enemy", 10, 30, 460, 850, 460);
-        addLine(units, "sphynx_infantry", "enemy", 10, 30, 420, 850, 420);
-        addLine(units, "sphynx_infantry", "enemy", 10, 30, 480, 850, 480);
-        addLine(units, "human_GEF_artillery", "enemy", 5, 30, 480, 850, 480);
-        addLine(units, "sphynx_infantry", "enemy", 10, 30, 20, 30, 300);
-        addLine(units, "sphynx_infantry", "enemy", 10, 30, 30, 450, 30);
-        addLine(units, "sphynx_infantry", "enemy", 10, 30, 50, 450, 50);
-        addLine(units, "sphynx_infantry", "enemy", 10, 30, 50, 450, 50);
-        addLine(units, "sphynx_infantry", "enemy", 10, 30, 20, 30, 300);
-        addLine(units, "sphynx_infantry", "enemy", 10, 850, 20, 850, 300);
-        addLine(units, "beaver_infantry", "player", 10, 250, 137, 600, 137);
-        addLine(units, "beaver_infantry", "player", 10, 250, 180, 600, 180);
-        addLine(units, "beaver_infantry", "player", 10, 250, 165, 600, 160);
-        addLine(units, "beaver_infantry", "player", 10, 250, 200, 600, 200);
-        addLine(units, "beaver_infantry", "player", 10, 250, 260, 600, 260);
-        addLine(units, "beaver_infantry", "player", 10, 600, 137, 600, 260);
-        addLine(units, "beaver_infantry", "player", 10, 500, 137, 500, 260);
-        addLine(units, "beaver_infantry", "player", 10, 500, 137, 500, 260);
-        addLine(units, "beaver_infantry", "player", 10, 500, 137, 400, 260);
-        addLine(units, "beaver_infantry", "player", 10, 550, 137, 550, 260);
-        addLine(units, "beaver_infantry", "player", 10, 279, 137, 279, 260);
-        addLine(units, "beaver_infantry", "player", 10, 230, 137, 230, 260);
-        addLine(units, "beaver_infantry", "player", 10, 145, 137, 145, 260);
-        addLine(units, "beaver_infantry", "player", 10, 190, 137, 190, 260);
-        addLine(units, "beaver_infantry", "player", 10, 190, 400, 190, 400);
-    } else if (scenarioKey === 'memiga'){
-        battleTitle.textContent = "Battle for Memiga";
-        addLine(units, "human_infantry", "player", 17, 30, 50, 850, 50);
-        addLine(units, "human_infantry", "player", 17, 30, 100, 850, 100);
-        addLine(units, "human_infantry", "player", 17, 30, 120, 850, 120);
-        addLine(units, "human_infantry", "player", 17, 30, 140, 850, 140);
-        // FIX: Changed to beer_lover_militia
-        addLine(units, "beer_lover_militia", "enemy", 6, 200, 230, 350, 230);
-        addLine(units, "beer_lover_militia", "enemy", 6, 200, 260, 350, 260);
-        addLine(units, "beer_lover_militia", "enemy", 6, 200, 350, 350, 350);
-        addLine(units, "beer_lover_militia", "enemy", 6, 200, 260, 370, 260);
-        addLine(units, "beer_lover_militia", "enemy", 6, 200, 360, 360, 360);
-        addLine(units, "beer_lover_militia", "enemy", 6, 200, 380, 380, 380);
-        addLine(units, "human_infantry", "player", 9, 500, 50, 850, 50);
-        addLine(units, "human_infantry", "player", 7, 500, 100, 850, 100);
-        addLine(units, "human_infantry", "player", 8, 500, 120, 850, 120);
-        addLine(units, "human_infantry", "player", 6, 500, 140, 850, 140);
-        // FIX: Changed ukr_infantry to human_infantry
-        addLine(units, "human_infantry", "ally", 6, 200, 420, 380, 420);
-        addLine(units, "human_infantry", "ally", 6, 200, 440, 380, 440);
-    } else if (scenarioKey === 'memerooms_campaign') {
-        battleTitle.textContent = "Memerooms Campaign";
+    try {
+        units = []; 
+        let selectedLayout = mapLayouts[scenarioKey] || mapLayouts["default"];
+        parseMap(selectedLayout); 
         currentAIBehavior = 'aggressive'; 
-        addLine(units, "human_infantry", "player", 4, 60, 60, 120, 60);
-        addLine(units, "caracal_artillery", "player", 1, 60, 120, 60, 120);
-        addLine(units, "anprim_militia", "ally", 5, 800, 450, 800, 500);
-        addLine(units, "memerooms_monster", "enemy", 3, 400, 250, 450, 250);
-        addLine(units, "memerooms_monster", "enemy", 2, 600, 150, 650, 150);
-        addLine(units, "memerooms_monster", "enemy", 3, 250, 400, 300, 400);
-        addLine(units, "memerooms_monster", "enemy", 3, 650, 400, 700, 400);
-    } else {
-        battleTitle.textContent = scenarioKey.toUpperCase().replace('_', ' ');
-        addLine(units, "human_infantry", "player", 6, 50, 200, 50, 400);
-        addLine(units, "floppa_cavalry", "enemy", 6, 700, 200, 700, 400);
-    }
+        
+        if (aiToggleBtn) {
+            playerAIBehavior = 'defense';
+            aiToggleBtn.textContent = 'Defense Mode';
+            aiToggleBtn.classList.remove('attack');
+            aiToggleBtn.classList.add('defense');
+        }
 
-    document.getElementById('main-menu').style.display = 'none';
-    document.getElementById('game-ui').style.display = 'flex';
-    gameState = 'playing';
+        if (scenarioKey === 'july_pelmensk') {
+            currentAIBehavior = 'defensive';
+            battleTitle.textContent = "I Battle for P'el'm'ensk";
+            addLine(units, "caracal_artillery", "player", 2, 150, 250, 150, 350);
+            addLine(units, "human_infantry", "player", 16, 50, 450, 870, 450);
+            addLine(units, "caracal_artillery", "enemy", 8, 700, 150, 100, 100);
+            addLine(units, "floppa_infantry", "enemy", 8, 700, 150, 100, 150);
+            addLine(units, "floppa_infantry", "enemy", 8, 700, 100, 100, 100);
+            addLine(units, "human_infantry", "player", 6, 50, 400, 50, 400);
+            addLine(units, "human_infantry", "player", 16, 50, 480, 870, 480);
+            addLine(units, "human_infantry", "player", 16, 50, 410, 870, 410);
+            addLine(units, "human_infantry", "player", 16, 50, 410, 870, 410);
+            addLine(units, "human_infantry", "player", 16, 50, 390, 870, 390);
+        } else if (scenarioKey === 'bobrinsk'){
+            battleTitle.textContent = "Siege of Bobrinsk - Third/Fourth Memeworld War";
+            addLine(units, "sphynx_infantry", "enemy", 10, 30, 460, 850, 460);
+            addLine(units, "sphynx_infantry", "enemy", 10, 30, 420, 850, 420);
+            addLine(units, "sphynx_infantry", "enemy", 10, 30, 480, 850, 480);
+            addLine(units, "human_GEF_artillery", "enemy", 5, 30, 480, 850, 480);
+            addLine(units, "sphynx_infantry", "enemy", 10, 30, 20, 30, 300);
+            addLine(units, "sphynx_infantry", "enemy", 10, 30, 30, 450, 30);
+            addLine(units, "sphynx_infantry", "enemy", 10, 30, 50, 450, 50);
+            addLine(units, "sphynx_infantry", "enemy", 10, 30, 50, 450, 50);
+            addLine(units, "sphynx_infantry", "enemy", 10, 30, 20, 30, 300);
+            addLine(units, "sphynx_infantry", "enemy", 10, 850, 20, 850, 300);
+            addLine(units, "beaver_infantry", "player", 10, 250, 137, 600, 137);
+            addLine(units, "beaver_infantry", "player", 10, 250, 180, 600, 180);
+            addLine(units, "beaver_infantry", "player", 10, 250, 165, 600, 160);
+            addLine(units, "beaver_infantry", "player", 10, 250, 200, 600, 200);
+            addLine(units, "beaver_infantry", "player", 10, 250, 260, 600, 260);
+            addLine(units, "beaver_infantry", "player", 10, 600, 137, 600, 260);
+            addLine(units, "beaver_infantry", "player", 10, 500, 137, 500, 260);
+            addLine(units, "beaver_infantry", "player", 10, 500, 137, 500, 260);
+            addLine(units, "beaver_infantry", "player", 10, 500, 137, 400, 260);
+            addLine(units, "beaver_infantry", "player", 10, 550, 137, 550, 260);
+            addLine(units, "beaver_infantry", "player", 10, 279, 137, 279, 260);
+            addLine(units, "beaver_infantry", "player", 10, 230, 137, 230, 260);
+            addLine(units, "beaver_infantry", "player", 10, 145, 137, 145, 260);
+            addLine(units, "beaver_infantry", "player", 10, 190, 137, 190, 260);
+            addLine(units, "beaver_infantry", "player", 10, 190, 400, 190, 400);
+        } else if (scenarioKey === 'memiga'){
+            battleTitle.textContent = "Battle for Memiga";
+            addLine(units, "human_infantry", "player", 17, 30, 50, 850, 50);
+            addLine(units, "human_infantry", "player", 17, 30, 100, 850, 100);
+            addLine(units, "human_infantry", "player", 17, 30, 120, 850, 120);
+            addLine(units, "human_infantry", "player", 17, 30, 140, 850, 140);
+            addLine(units, "beer_lover_militia", "enemy", 6, 200, 230, 350, 230);
+            addLine(units, "beer_lover_militia", "enemy", 6, 200, 260, 350, 260);
+            addLine(units, "beer_lover_militia", "enemy", 6, 200, 350, 350, 350);
+            addLine(units, "beer_lover_militia", "enemy", 6, 200, 260, 370, 260);
+            addLine(units, "beer_lover_militia", "enemy", 6, 200, 360, 360, 360);
+            addLine(units, "beer_lover_militia", "enemy", 6, 200, 380, 380, 380);
+            addLine(units, "human_infantry", "player", 9, 500, 50, 850, 50);
+            addLine(units, "human_infantry", "player", 7, 500, 100, 850, 100);
+            addLine(units, "human_infantry", "player", 8, 500, 120, 850, 120);
+            addLine(units, "human_infantry", "player", 6, 500, 140, 850, 140);
+            addLine(units, "human_infantry", "ally", 6, 200, 420, 380, 420);
+            addLine(units, "human_infantry", "ally", 6, 200, 440, 380, 440);
+        } else if (scenarioKey === 'memerooms_campaign') {
+            battleTitle.textContent = "Memerooms Campaign";
+            currentAIBehavior = 'aggressive'; 
+            addLine(units, "human_infantry", "player", 4, 60, 60, 120, 60);
+            addLine(units, "caracal_artillery", "player", 1, 60, 120, 60, 120);
+            addLine(units, "anprim_militia", "ally", 5, 800, 450, 800, 500);
+            addLine(units, "memerooms_monster", "enemy", 3, 400, 250, 450, 250);
+            addLine(units, "memerooms_monster", "enemy", 2, 600, 150, 650, 150);
+            addLine(units, "memerooms_monster", "enemy", 3, 250, 400, 300, 400);
+            addLine(units, "memerooms_monster", "enemy", 3, 650, 400, 700, 400);
+        } else {
+            battleTitle.textContent = scenarioKey.toUpperCase().replace('_', ' ');
+            addLine(units, "human_infantry", "player", 6, 50, 200, 50, 400);
+            addLine(units, "floppa_cavalry", "enemy", 6, 700, 200, 700, 400);
+        }
+
+        document.getElementById('main-menu').style.display = 'none';
+        document.getElementById('game-ui').style.display = 'flex';
+        gameState = 'playing';
+    } catch (error) {
+        alert("Error starting battle: " + error.message);
+        console.error(error);
+    }
 }
 
 function returnToMenu() {
@@ -582,19 +581,21 @@ function returnToMenu() {
 }
 
 // --- 6. AI TOGGLE BUTTON LOGIC ---
-aiToggleBtn.addEventListener('click', () => {
-    if (playerAIBehavior === 'defense') {
-        playerAIBehavior = 'attack';
-        aiToggleBtn.textContent = 'Attack Mode';
-        aiToggleBtn.classList.remove('defense');
-        aiToggleBtn.classList.add('attack');
-    } else {
-        playerAIBehavior = 'defense';
-        aiToggleBtn.textContent = 'Defense Mode';
-        aiToggleBtn.classList.remove('attack');
-        aiToggleBtn.classList.add('defense');
-    }
-});
+if (aiToggleBtn) {
+    aiToggleBtn.addEventListener('click', () => {
+        if (playerAIBehavior === 'defense') {
+            playerAIBehavior = 'attack';
+            aiToggleBtn.textContent = 'Attack Mode';
+            aiToggleBtn.classList.remove('defense');
+            aiToggleBtn.classList.add('attack');
+        } else {
+            playerAIBehavior = 'defense';
+            aiToggleBtn.textContent = 'Defense Mode';
+            aiToggleBtn.classList.remove('attack');
+            aiToggleBtn.classList.add('defense');
+        }
+    });
+}
 
 // --- 7. INPUT HANDLING ---
 canvas.addEventListener('pointerdown', (e) => {
