@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memeworld Battles Simulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ================= MAIN MENU ================= -->
+    <div id="main-menu" class="menu-container">
+        <header class="menu-header">
+            <h1>Memeworld Battles</h1>
+            <p>Command your troops. Change history.</p>
+        </header>
+
+        <div class="scenario-grid">
+            <button class="scenario-card" onclick="startBattle('pelmenorezh')">
+                <h3>Battle for Pel'm'enor'ezh</h3>
+                <p>Protect palace of Floppa I from communists! Date:~25.04.2022.</p>
+            </button>
+            <button class="scenario-card" onclick="startBattle('siege_memoupol')">
+                <h3>Siege of Memoupol'</h3>
+                <p>Protect the Floppian city from communist revolutionaries.</p>
+            </button>
+            <button class="scenario-card" onclick="startBattle('memebul')">
+                <h3>Memebul Campaign</h3>
+                <p>Punish remnants of the Ottoman Cat Empire. Date:~5.6-10.6.2022</p>
+            </button>
+            <button class="scenario-card" onclick="startBattle('memiga')">
+                <h3>Battle for Memiga</h3>
+                <p>Push communist alcoholic revolutionaries away from Memiga!.</p>
+            </button>
+	<button class="scenario-card" onclick="startBattle('memerooms_campaign')">
+                <h3>Memerooms campaign</h3>
+                <p>Survive the lethal cringe anomalies in the endless yellow corridors.</p>
+            </button>
+            <button class="scenario-card" onclick="startBattle('shapi_desert')">
+                <h3>Battle for Shapi Desert</h3>
+                <p>Decisive battle in civil war of Republic of Shnapi.</p>
+            </button>
+            <button class="scenario-card" onclick="startBattle('july_pelmensk')">
+                <h3>I Battle for P'el'm'ensk</h3>
+                <p>Prove the dignity of ME and its allies. Date:2.7-3.7.2022</p>
+            </button>
+            <button class="scenario-card" onclick="startBattle('bobrinsk')">
+                <h3>Siege of Bobrinsk</h3>
+                <p>Protect Beaver capital from Great Empire of Faces!</p>
+            </button>
+            <button class="scenario-card" onclick="startBattle('doland')">
+                <h3>Battle for Doland</h3>
+                <p>Push Floppian colonisators away from the city of Doges!</p>
+            </button>
+            <button class="scenario-card" onclick="startBattle('pelmenskvsfaces')">
+                <h3>II Battle for Pel'm'ensk </h3>
+                <p>Protect the capital from nazists of GEF!</p>
+            </button>
+            <button class="scenario-card" onclick="startBattle('tualetina')">
+                <h3>Battle for Tualetina</h3>
+                <p>ME and CRE attempt to conquer UST.</p>
+            </button>
+            <button class="scenario-card" onclick="startBattle('tabuphines')">
+                <h3>I Battle for Tabuphines</h3>
+                <p>The decisive battle for the capital of Taburette-Chair Confederacy. Date:early August 2022</p>
+            </button>
+            <button class="scenario-card" onclick="startBattle('tabuphines2')">
+                <h3>II Battle for Tabuphines</h3>
+                <p>The national-communist revolution started here and the end of the history of TCC</p>
+            </button>
+            <button class="scenario-card" onclick="startBattle('greececommunistoffensive')">
+                <h3>Central Greece communist offensive</h3>
+                <p>Communists attempted to take over Greece completely.</p>
+            </button>
+            <button class="scenario-card" onclick="startBattle('september_pelmensk')">
+                <h3>III Battle for P'el'm'ensk</h3>
+                <p>Humiliate the Floppian arrogance by taking their capital! Date:1.9.2022</p>
+            </button>
+            <button class="scenario-card" onclick="startBattle('chornoorlynsk')">
+                <h3>Battle for Chornoorlynsk</h3>
+                <p>The future of Retboria is decided in its old capital! Date:~Winter 22-23</p>
+            </button>
+        </div>
+    </div>
+
+    <!-- ================= GAME UI ================= -->
+    <div id="game-ui" class="game-container" style="display: none;">
+                <header class="hud-top">
+            <h2 id="battle-title">Battle Name</h2>
+            <div class="hud-controls">
+                <button id="global-ai-toggle" class="toggle-btn defense">Defense Mode</button>
+                <button id="exit-btn" class="danger-btn" onclick="returnToMenu()">Retreat to Menu</button>
+            </div>
+        </header>
+        </header>
+
+        <canvas id="battlefield" width="900" height="550"></canvas>
+
+        <footer class="hud-bottom">
+            <div class="stats-panel" id="stats-panel">
+                <p>Select units to command.</p>
+            </div>
+            <!-- PORTRAIT PANEL IS NOW OUTSIDE THE STATS PANEL -->
+            <div class="portrait-panel">
+                <img id="unit-portrait" src="" alt="Unit Portrait" style="display: none;">
+            </div>
+        </footer>
+    </div>
+
+    <script src="program.js"></script>
+</body>
+</html>

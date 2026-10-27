@@ -1,0 +1,206 @@
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Courier New', Courier, monospace; }
+
+body {
+    background-color: #121212;
+    color: #fff;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ================= MAIN MENU ================= */
+.menu-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 90vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-header {
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #d4af37;
+    padding-bottom: 20px;
+}
+
+.menu-header h1 {
+    color: #d4af37;
+    font-size: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+.menu-header p {
+    color: #aaa;
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+.scenario-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    overflow-y: auto;
+    padding-bottom: 20px;
+}
+
+.scenario-card {
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-left: 4px solid #8b0000;
+    padding: 20px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #fff;
+    font-family: inherit;
+}
+
+.scenario-card:hover {
+    background-color: #2a2a2a;
+    border-left: 4px solid #d4af37;
+    transform: translateX(5px);
+}
+
+.scenario-card h3 {
+    font-size: 1.1rem;
+    color: #f1c40f;
+    margin-bottom: 8px;
+}
+
+.scenario-card p {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+/* ================= GAME UI ================= */
+.game-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #1e1e1e;
+    border: 2px solid #333;
+    border-radius: 8px;
+    
+    /* FIXED: Better width/height constraints for fullscreen */
+    width: 95vw;
+    max-width: 1000px;
+    max-height: 95vh; 
+}
+
+.hud-top {
+    background-color: #2b2b2b;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #444;
+    flex-shrink: 0; /* Prevents the top bar from squishing */
+}
+
+.hud-top h2 { color: #d4af37; font-size: 1.2rem; }
+
+#battlefield {
+    background-color: #4a5d23;
+    cursor: crosshair;
+    display: block;
+    width: 100%;
+    /* FIXED: Let the canvas flex to fill available space without pushing the HUD off screen */
+    flex-grow: 1;
+    min-height: 0; 
+    object-fit: contain;
+    touch-action: none; 
+}
+
+/* --- BOTTOM HUD --- */
+.hud-bottom {
+    background-color: #2b2b2b;
+    padding: 10px 20px;
+    height: 100px;
+    border-top: 1px solid #444;
+    width: 100%;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    flex-shrink: 0; /* Prevents the bottom bar from being cut off */
+}
+
+.stats-panel { 
+    flex-grow: 1; 
+    padding-right: 20px;
+}
+
+.stats-panel p { font-size: 0.9rem; color: #bdc3c7; }
+
+.portrait-panel {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    border: 2px solid #d4af37;
+    border-radius: 8px;
+    background-color: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+    margin-left: 15px; /* Keeps the portrait away from the text */
+}
+
+#unit-portrait {
+    width: 100%;
+    height: 100%;
+    /* FIXED: contain shows the whole image without cropping */
+    object-fit: contain; 
+}
+
+.danger-btn {
+    background-color: #8b0000;
+    color: white;
+    border: 1px solid #c0392b;
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: inherit;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+.danger-btn:hover { background-color: #c0392b; }
+
+@media (max-width: 768px) {
+    .hud-top h2 { font-size: 1rem; }
+    .portrait-panel { width: 60px; height: 60px; }
+    .stats-panel p { font-size: 0.8rem; }
+}
+/* Top HUD Button Controls */
+.hud-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.toggle-btn {
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: inherit;
+    border-radius: 5px;
+    font-size: 1rem;
+    border: 1px solid #555;
+    transition: all 0.2s;
+}
+
+.toggle-btn.defense {
+    background-color: #2980b9; /* Blue */
+    color: white;
+    border-color: #3498db;
+}
+
+.toggle-btn.attack {
+    background-color: #c0392b; /* Red */
+    color: white;
+    border-color: #e74c3c;
+}
